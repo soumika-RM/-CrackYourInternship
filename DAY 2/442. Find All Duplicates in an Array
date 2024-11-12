@@ -1,0 +1,42 @@
+# SOLUTION 1
+
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> duplicates = new ArrayList<>();
+        if (nums == null || nums.length == 0) 
+            return duplicates;
+
+        int index = 0;
+        int length = nums.length;
+
+        while (index < length) {
+            if (nums[index] == index + 1) {
+                index++;
+                continue;
+            }
+
+            int currentNum = nums[index];
+            if (currentNum == -1) {
+                index++;
+                continue;
+            }
+
+            if (nums[currentNum - 1] == currentNum) {
+                duplicates.add(currentNum);
+                nums[index] = -1;
+                index++;
+                continue;
+            }
+
+            swap(nums, index, currentNum - 1);
+        }
+
+        return duplicates;
+    }
+
+    public void swap(int[] nums, int firstIndex, int secondIndex) {
+        int temp = nums[firstIndex];
+        nums[firstIndex] = nums[secondIndex];
+        nums[secondIndex] = temp;
+    }
+}
